@@ -163,4 +163,12 @@ li{
   border: 2px solid black;
   transition: 0.3s background ease-in;
 }
+
+@media (max-width: 480px){
+  .centerDiv{
+    width: 85%;
+    height: 55%;
+    padding: 10px;
+  }
+}
 `
