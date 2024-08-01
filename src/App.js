@@ -1,6 +1,7 @@
 import './App.css';
 import styled from 'styled-components';
 import React, { useState } from 'react';
+import TaskLists from './TaskLists';
 
 
 function App() {
@@ -26,6 +27,16 @@ const handleKeyPress = (event)=>{
   }
 }
 
+//confusion
+const deleteTask = (id)=>{
+  console.log("raman")
+  setTasks((oldTask)=>{
+    return oldTask.filter((element,index)=>{
+      return index !== id;
+    })
+  })
+}
+
   return (
     <>
     <MainContainer className='main'>
@@ -41,18 +52,23 @@ const handleKeyPress = (event)=>{
                   onKeyPress={handleKeyPress}
                   ></input>
 
-        <button onClick={addTask}>ADD TASK</button>
+        <button className='button1' onClick={addTask}>ADD TASK</button>
         </div><br/ >
         
       
         <ul>
         {
-          tasks.map( (value)=> {
-          return <li><button>X</button>{value}</li>
+          tasks.map( (value,index)=> {
+          return <TaskLists
+          value={value}
+          key={index}
+          id={index}
+          deleteTask={deleteTask}
+           />
           })
         }
         </ul>
-        
+
       </div>
     </MainContainer>
     </>
@@ -69,45 +85,82 @@ let MainContainer = styled.div`
   place-items: center;
 
 .centerDiv{
-  border: 2px solid red;
-  height: 60%;
-  width: 25%;
+  height: 70%;
+  width: 30%;
   padding: 20px;
+  background-color: white;
+  border: 5px double red;
 }
 
 .inputBox{
   height: 35px;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
+  
 }
 
 input{
+  padding-left:6px;
   width: 95%;
   background-color: transparent;
   border: none;
   border-bottom: 2px solid black;
 }
 
+input:focus{
+  color:black;
+  font-size: large;
+  font-weight: bold;
+}
+
 h1{
   text-align: center;
 }
 
+.listBox{
+  display: flex;
+  gap: 8px;
+}
+
 ul{
   list-style-type: none;
-  border: 2px solid red;
 }
 
 li{
-  border: 2px solid black;
+  font-size: larger;
   margin-bottom: 5px;
+  padding: 0 4px;
+  color: white;
+  background-color: blueviolet;
+  
 }
 
-button{
+.button1{
   background-color: red;
   color: white;
   font-weight: bold;
   border: 1px solid white;
+  border-radius: 30px;
   cursor: pointer;
+  width: 30%;
+  transition: 0.5s background ease-in;
+}
+
+.button2{
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border: 1px solid white;
+  padding: 1px 4px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.button1:hover,.button2:hover{
+  background-color: aliceblue;
+  color: black;
+  border: 2px solid black;
+  transition: 0.3s background ease-in;
 }
 `
